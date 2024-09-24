@@ -2,7 +2,7 @@ from django import forms
 from .models import AdmitCard, Course
 from django.forms import modelformset_factory
 
-# Main Admit Card Form
+
 class AdmitCardForm(forms.ModelForm):
     class Meta:
         model = AdmitCard
@@ -38,7 +38,7 @@ class AdmitCardForm(forms.ModelForm):
             }),
         }
 
-# Course Form (for course code and course name)
+
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
@@ -55,5 +55,5 @@ class CourseForm(forms.ModelForm):
             }),
         }
 
-# Formset to allow multiple courses dynamically
+
 CourseFormSet = modelformset_factory(Course, form=CourseForm, extra=1)

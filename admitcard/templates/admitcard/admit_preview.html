@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mx-auto py-12">
+    <div class="max-w-4xl mx-auto bg-white p-10 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-extrabold text-center mb-6">Admit Card Preview</h1>
+
+        <!-- Display admit card details -->
+        <div class="mb-8">
+            <p><strong>Student Code:</strong> {{ admit_card.student_code }}</p>
+            <p><strong>Name:</strong> {{ admit_card.name }}</p>
+            <p><strong>Batch Number:</strong> {{ admit_card.batch_number }}</p>
+            <p><strong>Exam Type:</strong> {{ admit_card.exam_type }}</p>
+            <p><strong>Semester:</strong> {{ admit_card.semester_name }} {{ admit_card.year }}</p>
+            <p><strong>Program Name:</strong> {{ admit_card.program_name }}</p>
+        </div>
+
+        <!-- Display the list of courses -->
+        <h2 class="text-2xl font-bold mb-4">Courses</h2>
+        <ul class="list-disc pl-5">
+            {% for course in admit_card.courses.all %}
+                <li>{{ course.course_code }} - {{ course.course_name }}</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Button to download the admit card as PDF -->
+        <div class="mt-6">
+            <a href="{% url 'generate_admit_card_pdf' admit_card.id %}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Download PDF</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
