@@ -2,30 +2,55 @@
 
 {% block body %}
 <div class="container mx-auto py-12">
-    <div class="max-w-4xl mx-auto bg-white p-10 rounded-lg shadow-lg">
-        <h1 class="text-3xl font-extrabold text-center mb-6">Admit Card Preview</h1>
+    <div class="max-w-4xl mx-auto bg-gradient-to-r from-blue-50 to-white p-10 rounded-lg shadow-xl">
+        <h1 class="text-4xl font-extrabold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
+            Admit Card Preview
+        </h1>
 
         <!-- Display admit card details -->
-        <div class="mb-8">
-            <p><strong>Student Code:</strong> {{ admit_card.student_code }}</p>
-            <p><strong>Name:</strong> {{ admit_card.name }}</p>
-            <p><strong>Batch Number:</strong> {{ admit_card.batch_number }}</p>
-            <p><strong>Exam Type:</strong> {{ admit_card.exam_type }}</p>
-            <p><strong>Semester:</strong> {{ admit_card.semester_name }} {{ admit_card.year }}</p>
-            <p><strong>Program Name:</strong> {{ admit_card.program_name }}</p>
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Student Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <p class="text-lg">
+                    <strong>Student Code:</strong> <span class="text-gray-700">{{ admit_card.student_code }}</span>
+                </p>
+                <p class="text-lg">
+                    <strong>Name:</strong> <span class="text-gray-700">{{ admit_card.name }}</span>
+                </p>
+                <p class="text-lg">
+                    <strong>Batch Number:</strong> <span class="text-gray-700">{{ admit_card.batch_number }}</span>
+                </p>
+                <p class="text-lg">
+                    <strong>Exam Type:</strong> <span class="text-gray-700">{{ admit_card.exam_type }}</span>
+                </p>
+                <p class="text-lg">
+                    <strong>Semester:</strong> <span class="text-gray-700">{{ admit_card.semester_name }} {{ admit_card.year }}</span>
+                </p>
+                <p class="text-lg">
+                    <strong>Program Name:</strong> <span class="text-gray-700">{{ admit_card.program_name }}</span>
+                </p>
+            </div>
         </div>
 
         <!-- Display the list of courses -->
-        <h2 class="text-2xl font-bold mb-4">Courses</h2>
-        <ul class="list-disc pl-5">
-            {% for course in admit_card.courses.all %}
-                <li>{{ course.course_code }} - {{ course.course_name }}</li>
-            {% endfor %}
-        </ul>
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Registered Courses</h2>
+            <ul class="list-none space-y-4">
+                {% for course in admit_card.courses.all %}
+                <li class="flex justify-between items-center p-4 bg-gradient-to-r from-indigo-100 to-blue-100 rounded-lg shadow-sm">
+                    <span class="font-semibold text-lg text-blue-800">{{ course.course_code }}</span>
+                    <span class="text-gray-700">{{ course.course_name }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
 
         <!-- Button to download the admit card as PDF -->
-        <div class="mt-6">
-            <a href="{% url 'generate_admit_card_pdf' admit_card.id %}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Download PDF</a>
+        <div class="flex justify-center">
+            <a href="{% url 'generate_admit_card_pdf' admit_card.id %}"
+                class="bg-gradient-to-r from-green-400 to-blue-500 text-white text-lg font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300">
+                Download PDF
+            </a>
         </div>
     </div>
 </div>

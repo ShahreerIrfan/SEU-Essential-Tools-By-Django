@@ -3,14 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Web Application</title>
+    <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-</head>
-<body>
-    {% block body %}
-    {% endblock %}
+<body class="bg-gray-100 min-h-screen">
 
+    <!-- Desktop Menu Bar (Empty for now) -->
+    <div class="hidden md:flex justify-between items-center bg-gradient-to-r from-blue-600 to-purple-600 p-4 shadow-lg">
+        <div class="text-white text-xl font-semibold">Desktop Application Menu</div>
+        <ul class="flex space-x-8 text-white text-lg">
+            <!-- Empty for now -->
+        </ul>
+    </div>
+
+    <!-- Mobile Menu Bar (Empty for now) -->
+    <div class="md:hidden bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
+        <div class="flex justify-between items-center p-4">
+            <div class="text-white text-xl font-semibold">App Menu</div>
+            <button id="menu-toggle" class="text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden bg-blue-700">
+            <ul class="text-white text-center space-y-2 py-4">
+                <!-- Empty for now -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container mx-auto py-12">
+        <h1 class="text-4xl font-extrabold text-center mb-10 text-gradient bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">Welcome to Your Tools</h1>
+        <div class="grid gap-8 md:grid-cols-3">
+            
+            <!-- CGPA Calculator Card -->
+            <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl">
+                <h2 class="text-2xl font-bold text-gray-800">CGPA Calculator</h2>
+                <p class="text-gray-600 mt-2">Calculate your CGPA easily with our advanced tool. Stay on top of your academic progress.</p>
+                <div class="mt-6">
+                    <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full block text-center">Use Tool</a>
+                </div>
+            </div>
+
+            <!-- Admit Card Generator Card -->
+            <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl">
+                <h2 class="text-2xl font-bold text-gray-800">Admit Card Generator</h2>
+                <p class="text-gray-600 mt-2">Easily generate your admit card with accurate information for your exams.</p>
+                <div class="mt-6">
+                    <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full block text-center">Use Tool</a>
+                </div>
+            </div>
+
+            <!-- Assignment Cover Page Generator Card -->
+            <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl">
+                <h2 class="text-2xl font-bold text-gray-800">Assignment Cover Page Generator</h2>
+                <p class="text-gray-600 mt-2">Generate professional cover pages for your assignments with ease.</p>
+                <div class="mt-6">
+                    <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full block text-center">Use Tool</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript for Mobile Menu Toggle -->
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 
 </body>
 </html>
