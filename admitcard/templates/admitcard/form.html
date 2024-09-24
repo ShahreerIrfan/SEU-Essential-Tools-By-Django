@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mx-auto py-12">
+    <div class="max-w-4xl mx-auto bg-white p-10 rounded-lg shadow-lg transform transition hover:scale-105 hover:shadow-2xl duration-500">
+        <h1 class="text-4xl font-extrabold text-center mb-10 text-gradient bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">Admit Card Form</h1>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Admit Card Fields -->
+            <div class="grid grid-cols-1 gap-y-5 md:grid-cols-2 md:gap-6">
+                <!-- Student Code -->
+                <div>
+                    <label for="student_code" class="block text-lg font-semibold text-gray-700">Student Code</label>
+                    <input type="text" name="student_code" id="student_code" value="{{ admit_form.student_code.value }}" class="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="Enter Student Code">
+                </div>
+                
+                <!-- Name -->
+                <div>
+                    <label for="name" class="block text-lg font-semibold text-gray-700">Name</label>
+                    <input type="text" name="name" id="name" value="{{ admit_form.name.value }}" class="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="Enter Name">
+                </div>
+
+                <!-- Batch Number -->
+                <div>
+                    <label for="batch_number" class="block text-lg font-semibold text-gray-700">Batch Number</label>
+                    <input type="number" name="batch_number" id="batch_number" value="{{ admit_form.batch_number.value }}" class="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="Enter Batch Number">
+                </div>
+
+                <!-- Exam Type -->
+                <div>
+                    <label for="exam_type" class="block text-lg font-semibold text-gray-700">Exam Type</label>
+                    {{ admit_form.exam_type }}
+                </div>
+
+                <!-- Semester Name -->
+                <div>
+                    <label for="semester_name" class="block text-lg font-semibold text-gray-700">Semester</label>
+                    {{ admit_form.semester_name }}
+                </div>
+
+                <!-- Year -->
+                <div>
+                    <label for="year" class="block text-lg font-semibold text-gray-700">Year</label>
+                    <input type="number" name="year" id="year" value="{{ admit_form.year.value }}" class="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="Enter Year">
+                </div>
+
+                <!-- Program Name -->
+                <div>
+                    <label for="program_name" class="block text-lg font-semibold text-gray-700">Program Name</label>
+                    {{ admit_form.program_name }}
+                </div>
+
+                <!-- Image Upload -->
+                <div>
+                    <label for="image" class="block text-lg font-semibold text-gray-700">Upload Image</label>
+                    {{ admit_form.image }}
+                </div>
+            </div>
+
+            <!-- Course Section -->
+            <h2 class="text-2xl font-semibold text-center text-gray-700 mb-6">Courses</h2>
+            <div id="course-container" class="space-y-4">
+                {{ course_formset.management_form }}
+                {% for form in course_formset %}
+                    <div class="flex space-x-4 course-entry">
+                        <div class="w-1/2">
+                            <input type="text" name="form-{{ forloop.counter0 }}-course_code" value="{{ form.course_code.value }}" class="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="Course Code">
+                        </div>
+                        <div class="w-1/2">
+                            <input type="text" name="form-{{ forloop.counter0 }}-course_name" value="{{ form.course_name.value }}" class="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="Course Name">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Add More Courses Button -->
+            <button type="button" id="add-course" class="block w-full mt-4 bg-gradient-to-r from-green-400 to-blue-500 text-white text-lg font-bold py-3 rounded-lg shadow-lg hover:shadow-2xl transition transform hover:scale-105 duration-300">Add More Courses</button>
+
+            <!-- Submit Button -->
+            <div class="mt-8">
+                <button type="submit" class="block w-full bg-gradient-to-r from-blue-600 to-indigo-500 text-white text-xl font-bold py-3 rounded-lg shadow-lg hover:shadow-2xl transition transform hover:scale-105 duration-300">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript for dynamically adding courses -->
+<script>
+    let form_idx = parseInt("{{ course_formset.total_form_count }}");
+    const totalForms = document.getElementById('id_form-TOTAL_FORMS');
+
+    document.getElementById('add-course').addEventListener('click', function() {
+        const container = document.getElementById('course-container');
+        const newCourse = document.createElement('div');
+        newCourse.classList.add('flex', 'space-x-4', 'mt-4', 'course-entry');
+
+        // Add new input fields dynamically
+        newCourse.innerHTML = `
+            <div class="w-1/2">
+                <input type="text" name="form-${form_idx}-course_code" placeholder="Course Code" class="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" />
+            </div>
+            <div class="w-1/2">
+                <input type="text" name="form-${form_idx}-course_name" placeholder="Course Name" class="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" />
+            </div>
+        `;
+
+        container.appendChild(newCourse);
+        totalForms.setAttribute('value', `${++form_idx}`);
+    });
+</script>
+{% endblock %}
