@@ -12,7 +12,7 @@ import io
 import qrcode
 
 
-# Admit card form view
+
 def admit_card_form(request):
     if request.method == 'POST':
         admit_form = AdmitCardForm(request.POST, request.FILES)
