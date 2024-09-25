@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
 <style>
-  
     .shake:hover {
         animation: shake 0.8s cubic-bezier(.36, .07, .19, .97) both;
     }
@@ -80,9 +79,11 @@
             <h2 class="text-2xl font-bold text-gray-800">CGPA Calculator</h2>
             <p class="text-gray-600 mt-2">Calculate your CGPA easily with our advanced tool.</p>
             <div class="mt-6">
-                <a href="#"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full block text-center ripple">Use
-                    Tool</a>
+                <a href="{% url 'cg_calculator' %}"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full block text-center ripple">
+                    Use Tool
+                </a>
+
             </div>
         </div>
 
@@ -164,4 +165,4 @@
         });
     </script>
 
-{% endblock %}
+    {% endblock %}
