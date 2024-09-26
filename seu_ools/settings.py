@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'admitcard',
     'cg_calculator',
+    'study_planner',
 ]
 
 MIDDLEWARE = [
