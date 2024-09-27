@@ -26,4 +26,7 @@ urlpatterns = [
     path('cg_calculator/',include("cg_calculator.urls") ),
     path('study_planner/',include("study_planner.urls") ),
     path('',views.home,name='home')
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

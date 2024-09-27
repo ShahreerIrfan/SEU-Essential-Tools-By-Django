@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+import os
+
+# Add this section if it's not already present
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Application definition
 
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'admitcard',
     'cg_calculator',
     'study_planner',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mx-auto py-12">
+    <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-extrabold text-center mb-6">Login</h1>
+
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            <div>
+                <label for="username" class="block text-sm font-semibold text-gray-700">Username</label>
+                <input type="text" name="username" id="username" autocomplete="username"
+                    class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    required>
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-semibold text-gray-700">Password</label>
+                <input type="password" name="password" id="password" autocomplete="current-password"
+                    class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    required>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300 rounded">
+                    <label for="remember_me" class="ml-2 block text-sm text-gray-700"> Remember Me </label>
+                </div>
+
+                <div class="text-sm">
+                    <a href="#" class="font-medium text-blue-500 hover:text-blue-600">Forgot your password?</a>
+                </div>
+            </div>
+
+            <!-- Login Button -->
+            <div>
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-3 rounded-lg shadow-lg hover:bg-gradient-to-l focus:outline-none transition transform hover:scale-105">
+                    Login
+                </button>
+            </div>
+        </form>
+
+        <!-- Signup Option -->
+        <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600">Don't have an account? 
+                <a href="{% url 'register' %}" class="font-medium text-blue-500 hover:text-blue-600">Sign up</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

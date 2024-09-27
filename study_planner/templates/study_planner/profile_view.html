@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mx-auto py-8">
+    <div class="max-w-md mx-auto bg-white rounded-3xl shadow-xl transform transition hover:scale-105 hover:shadow-2xl">
+        <!-- Header with Gradient and Profile Photo -->
+        <div class="relative bg-gradient-to-r from-purple-500 to-indigo-600 rounded-t-3xl p-6 text-center">
+            <div class="absolute left-4 top-4">
+                <a href="{% url 'home' %}" class="text-white text-2xl">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="flex justify-center">
+                {% if profile.photo %}
+                    <img src="{{ profile.photo.url }}" alt="{{ user.username }}'s photo" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg">
+                {% else %}
+                    <img src="https://via.placeholder.com/100" alt="Default Profile" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg">
+                {% endif %}
+            </div>
+            <h2 class="mt-4 text-white text-2xl font-bold">{{ user.first_name }} {{ user.last_name }}</h2>
+            <p class="text-white text-lg">{{ user.username }}</p>
+        </div>
+
+        <!-- User Details Section -->
+        <div class="p-6 space-y-4">
+            <!-- Username -->
+            <div class="flex items-center space-x-3 border-b pb-3">
+                <i class="fas fa-user text-purple-500 text-xl"></i>
+                <span class="text-gray-700">{{ user.username }}</span>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="flex items-center space-x-3 border-b pb-3">
+                <i class="fas fa-phone-alt text-purple-500 text-xl"></i>
+                <span class="text-gray-700">{{ profile.phone_number|default:"Not Set" }}</span>
+            </div>
+
+            <!-- Bio -->
+            <div class="flex items-center space-x-3 border-b pb-3">
+                <i class="fas fa-info-circle text-purple-500 text-xl"></i>
+                <span class="text-gray-700">{{ profile.bio|default:"No bio available" }}</span>
+            </div>
+
+            <!-- Email -->
+            <div class="flex items-center space-x-3 border-b pb-3">
+                <i class="fas fa-envelope text-purple-500 text-xl"></i>
+                <span class="text-gray-700">{{ user.email }}</span>
+            </div>
+
+            <!-- Location -->
+            <div class="flex items-center space-x-3 border-b pb-3">
+                <i class="fas fa-map-marker-alt text-purple-500 text-xl"></i>
+                <span class="text-gray-700">{{ profile.location|default:"Location not set" }}</span>
+            </div>
+
+            <!-- Joined Date -->
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-calendar-alt text-purple-500 text-xl"></i>
+                <span class="text-gray-700">Joined on: {{ user.date_joined|date:"F d, Y" }}</span>
+            </div>
+        </div>
+
+        <!-- Edit Profile Button -->
+        <div class="p-6 text-center">
+            <a href="{% url 'edit_profile' %}" class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-6 py-3 rounded-full shadow-md hover:bg-gradient-to-l transition transform hover:scale-105">
+                Edit Profile
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

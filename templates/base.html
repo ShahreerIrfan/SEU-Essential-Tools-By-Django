@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile App UI Web App</title>
-    <!-- Tailwind CSS -->
+    <title>SEU Tools</title>
+  
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
+   
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        /* Custom hover effect for menu items */
+   
         .menu-item:hover {
             color: #FFD700;
             transition: color 0.3s ease;
@@ -18,7 +18,7 @@
 </head>
 <body class="bg-gradient-to-br from-blue-500 to-purple-600 min-h-screen flex flex-col items-center">
 
-    <!-- Full-Width Navigation Menu with Padding -->
+
     <nav class="w-full bg-white shadow-md p-4 mb-8">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <!-- Menu Items on the Left -->
@@ -26,11 +26,26 @@
                 <a href="{% url 'home' %}" class="menu-item text-gray-700 font-medium hover:text-blue-500 transition duration-200">
                     <i class="fas fa-home"></i> Home
                 </a>
+    
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="menu-item text-gray-700 font-medium hover:text-blue-500 transition duration-200">
+                        Profile
+                    </a>
+                    <a href="{% url 'logout' %}" class="menu-item text-gray-700 font-medium hover:text-blue-500 transition duration-200">
+                        Logout
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="menu-item text-gray-700 font-medium hover:text-blue-500 transition duration-200">
+                        Login
+                    </a>
+                    <a href="{% url 'register' %}" class="menu-item text-gray-700 font-medium hover:text-blue-500 transition duration-200">
+                        Register
+                    </a>
+                {% endif %}
             </div>
-
+    
             <!-- Logo on the Right -->
             <div class="flex items-center space-x-3">
-                <!-- Redesigned SVG Logo -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="h-10 w-10">
                     <circle cx="50" cy="50" r="48" fill="none" stroke="#4F46E5" stroke-width="8" />
                     <circle cx="50" cy="50" r="38" fill="#4F46E5" />
@@ -40,21 +55,33 @@
             </div>
         </div>
     </nav>
-
-    <!-- Mobile Menu (optional for responsive design) -->
+    
+ 
     <div id="mobile-menu" class="hidden md:hidden bg-white w-full p-4 shadow-lg">
         <ul class="space-y-4">
             <li><a href="{% url 'home' %}" class="menu-item block text-gray-700 font-medium hover:text-blue-500"><i class="fas fa-home"></i> Home</a></li>
+
+
+            {% if not user.is_authenticated %}
+            <li><a href="{% url 'login' %}" class="menu-item block text-gray-700 font-medium hover:text-blue-500"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li><a href="{% url 'register' %}" class="menu-item block text-gray-700 font-medium hover:text-blue-500"><i class="fas fa-user-plus"></i> Register</a></li>
+            {% endif %}
+
+
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'profile' %}" class="menu-item block text-gray-700 font-medium hover:text-blue-500"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="{% url 'logout' %}" class="menu-item block text-gray-700 font-medium hover:text-blue-500"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            {% endif %}
         </ul>
     </div>
 
-    <!-- Content Section -->
+
     <div class="w-full max-w-4xl">
         {% block body %}
         {% endblock %}
     </div>
 
-    <!-- JavaScript for Mobile Menu Toggle -->
+
     <script>
         document.getElementById('menu-toggle').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
