@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'cg_calculator',
     'study_planner',
     'widget_tweaks',
+    'task_management',
+    # 'taskManager',
 ]
 
 MIDDLEWARE = [

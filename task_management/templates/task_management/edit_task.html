@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mx-auto py-12">
+    <div class="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow-lg">
+        <h1 class="text-3xl font-extrabold text-center mb-8 text-indigo-600">Edit Task</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Task Form Fields Here -->
+                {{ form.as_p }} <!-- This will render the form fields dynamically -->
+            </div>
+
+            <div class="mt-6 text-center">
+                <button type="submit" class="w-full bg-indigo-500 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

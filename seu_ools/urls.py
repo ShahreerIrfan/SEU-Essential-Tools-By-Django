@@ -24,8 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('admit/',include("admitcard.urls") ),
     path('cg_calculator/',include("cg_calculator.urls") ),
-    path('study_planner/',include("study_planner.urls") ),
-    path('',views.home,name='home')
+    path('user/',include("study_planner.urls") ),
+    path('taskmanager/',include("task_management.urls") ),
+    path('',views.home,name='home'),
 ]
 
 if settings.DEBUG:

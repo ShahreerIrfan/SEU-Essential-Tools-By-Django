@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mx-auto py-12">
+    <div class="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow-2xl transform transition-all hover:scale-105 hover:shadow-3xl">
+        <h1 class="text-4xl font-bold text-center mb-8 text-indigo-600">Create a New Task</h1>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-6" id="task-form">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="task-form-grid">
+                <!-- Task Details -->
+                <div id="task-details" class="space-y-6">
+                    <h2 class="text-2xl font-semibold mb-6 text-gray-800">Task Details</h2>
+                    
+                    <div class="mb-4">
+                        <label for="title" class="block font-semibold mb-2 text-gray-700">Title</label>
+                        {{ form.title }}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="description" class="block font-semibold mb-2 text-gray-700">Description</label>
+                        {{ form.description }}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="due_date" class="block font-semibold mb-2 text-gray-700">Due Date</label>
+                        {{ form.due_date }}
+                    </div>
+
+                    <!-- Combine Priority and Category in one row -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="mb-4">
+                            <label for="priority" class="block font-semibold mb-2 text-gray-700">Priority</label>
+                            {{ form.priority }}
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="category" class="block font-semibold mb-2 text-gray-700">Category</label>
+                            {{ form.category }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Settings -->
+                <div id="task-settings" class="space-y-6">
+                    <h2 class="text-2xl font-semibold mb-6 text-gray-800">Task Settings</h2>
+
+                    <div class="mb-4">
+                        <label for="time_estimate" class="block font-semibold mb-2 text-gray-700">Time Estimate (optional)</label>
+                        {{ form.time_estimate }}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="notify_before" class="block font-semibold mb-2 text-gray-700">Notify Before (in hours)</label>
+                        {{ form.notify_before }}
+                    </div>
+
+                    <!-- Custom file upload -->
+                    <div class="mb-4">
+                        <label for="attachments" class="block font-semibold mb-2 text-gray-700">Attach File (optional)</label>
+                        <div class="relative">
+                            <label class="file-label block border border-gray-300 rounded-lg cursor-pointer p-3 bg-gray-50 hover:bg-indigo-50 transition-all">
+                                <span id="file-name">Choose File</span>
+                                <input type="file" name="attachments" id="file-input" class="hidden">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create Task Button -->
+            <div class="mt-6 text-center">
+                <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                    Create Task
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add JavaScript for dynamic effects -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Input fields styling dynamically
+        const formElements = document.querySelectorAll('input, textarea, select');
+        
+        formElements.forEach(element => {
+            element.classList.add('w-full', 'p-3', 'border', 'border-gray-300', 'rounded-lg', 'shadow-sm', 'focus:outline-none', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'transition-all');
+        });
+
+        // Adding animation on focus/blur
+        formElements.forEach(element => {
+            element.addEventListener('focus', function() {
+                this.classList.add('ring-2', 'ring-indigo-500', 'shadow-lg', 'scale-105');
+            });
+            element.addEventListener('blur', function() {
+                this.classList.remove('ring-2', 'ring-indigo-500', 'shadow-lg', 'scale-105');
+            });
+        });
+
+        // Custom file input label change
+        const fileInput = document.getElementById('file-input');
+        const fileNameDisplay = document.getElementById('file-name');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = fileInput.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'No file chosen';
+            }
+        });
+    });
+</script>
+
+<style>
+    /* Add smooth transitions to elements */
+    #task-form input, #task-form textarea, #task-form select {
+        transition: all 0.3s ease;
+    }
+
+    /* File input label */
+    .file-label {
+        position: relative;
+        padding: 10px;
+        text-align: center;
+        border-radius: 0.5rem;
+    }
+
+    /* Add subtle hover effect for buttons */
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form hover shadow */
+    .hover\:shadow-3xl:hover {
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+{% endblock %}

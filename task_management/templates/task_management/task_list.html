@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mx-auto py-12">
+    <div class="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow-lg">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-extrabold text-indigo-600">Your Tasks</h1>
+            <!-- Add Task Button -->
+            <a href="{% url 'create_task' %}" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center space-x-2">
+                <i class="fas fa-plus"></i>
+                <span>Add Task</span>
+            </a>
+        </div>
+
+        <!-- Task Filtering Form -->
+        <form method="GET" class="mb-8">
+            <div class="flex items-center space-x-4">
+                {{ filter_form.status.label_tag }}
+                {{ filter_form.status }}
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center space-x-2">
+                    <i class="fas fa-filter"></i>
+                    <span>Filter</span>
+                </button>
+            </div>
+        </form>
+
+        <!-- Task List -->
+        {% if tasks.exists %}
+        <ul class="space-y-4">
+            {% for task in tasks %}
+            <li class="bg-gradient-to-r from-green-100 to-green-50 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                <h2 class="text-xl font-semibold text-gray-900">{{ task.title }}</h2>
+                <p class="text-gray-600">{{ task.description }}</p>
+                <div class="text-sm text-gray-500">
+                    <p>Due: {{ task.due_date|date:"M d, Y H:i" }}</p>
+                    <p>Priority: <span class="font-bold">{{ task.get_priority_display }}</span></p>
+                    <p>Status: <span class="font-bold">{{ task.get_status_display }}</span></p>
+                </div>
+                <!-- Complete and Edit Button -->
+                <div class="mt-4 flex justify-between">
+                    <a href="{% url 'complete_task' task.id %}" class="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition flex items-center space-x-2">
+                        <i class="fas fa-check"></i>
+                        <span>Complete Task</span>
+                    </a>
+                    <a href="{% url 'edit_task' task.id %}" class="bg-indigo-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-600 transition flex items-center space-x-2">
+                        <i class="fas fa-edit"></i>
+                        <span>Edit</span>
+                    </a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-gray-500 text-center">No tasks available. <a href="{% url 'create_task' %}" class="text-indigo-500 hover:underline">Create one now!</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
