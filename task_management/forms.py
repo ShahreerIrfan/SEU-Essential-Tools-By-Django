@@ -47,7 +47,7 @@ class TaskForm(forms.ModelForm):
 
 class TaskFilterForm(forms.Form):
     STATUS_CHOICES = [
-        ('', 'All'),  # Allows users to show all tasks
+        ('', 'All'),  
         ('P', 'Pending'),
         ('IP', 'In Progress'),
         ('D', 'Done')

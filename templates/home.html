@@ -59,104 +59,167 @@
 
 <body class="bg-gradient-to-br from-blue-500 to-purple-600 min-h-screen flex flex-col items-center p-6">
 
-
-    <!-- Mobile App Header with Logo and Title -->
     <header class="w-full flex justify-between items-center bg-white shadow-md rounded-lg p-4 mb-6 max-w-4xl">
         <div class="text-blue-600 text-xl font-semibold">AppLogo</div>
-        <div class="text-gray-700 text-lg">Welcome Back, User!</div>
+    
+        <!-- Display the user's first name and profile photo -->
+        <div class="flex items-center space-x-4">
+            {% if user.is_authenticated and user_profile %}
+                <!-- User's profile photo -->
+                {% if user_profile.photo %}
+                    <img src="{{ user_profile.photo.url }}" alt="Profile Photo" class="w-10 h-10 rounded-full object-cover">
+                {% else %}
+                    <!-- Default avatar if the user doesn't have a profile photo -->
+                    <img src="https://via.placeholder.com/40" alt="Default Avatar" class="w-10 h-10 rounded-full object-cover">
+                {% endif %}
+                
+                <!-- Welcome message with the user's first name -->
+                <div class="text-gray-700 text-lg">Welcome Back, {{ user.first_name }}!</div>
+            {% else %}
+                <!-- Fallback for non-logged-in users -->
+                <div class="text-gray-700 text-lg">Welcome Back, User!</div>
+            {% endif %}
+        </div>
     </header>
-
-
+    
     <!-- App Container with Cards (like mobile app) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl pb-10">
 
         <!-- CGPA Calculator Card -->
-        <div
-            class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
             <div class="absolute top-0 right-0 m-4">
                 <i class="fas fa-calculator text-purple-500 text-4xl"></i>
             </div>
             <h2 class="text-2xl font-bold text-gray-800">CGPA Calculator</h2>
             <p class="text-gray-600 mt-2">Calculate your CGPA easily with our advanced tool.</p>
-            <div class="mt-6">
-                <a href="{% url 'cg_calculator' %}"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full block text-center ripple">
-                    Use Tool
-                </a>
-
+            <div class="mt-14">
+                <a href="{% url 'cg_calculator' %}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full block text-center ripple">Use Tool</a>
             </div>
         </div>
 
         <!-- Admit Card Generator Card -->
-        <div
-            class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
             <div class="absolute top-0 right-0 m-4">
                 <i class="fas fa-id-card-alt text-blue-500 text-4xl"></i>
             </div>
             <h2 class="text-2xl font-bold text-gray-800">Admit Card Generator</h2>
             <p class="text-gray-600 mt-2">Generate your admit card with accurate exam details.</p>
             <div class="mt-6">
-                <a href="{% url 'admit_card_form' %}"
-                    class="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 transition w-full block text-center ripple">Use
-                    Tool</a>
-
+                <a href="{% url 'admit_card_form' %}" class="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 transition w-full block text-center ripple">Use Tool</a>
             </div>
         </div>
 
         <!-- Assignment Cover Page Generator Card -->
-        <div
-            class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
             <div class="absolute top-0 right-0 m-4">
                 <i class="fas fa-file-alt text-green-500 text-4xl"></i>
             </div>
             <h2 class="text-2xl font-bold text-gray-800">Assignment Cover Page Generator</h2>
             <p class="text-gray-600 mt-2">Generate a professional cover page for your assignments.</p>
             <div class="mt-6">
-                <a href="#"
-                    class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition w-full block text-center ripple">Use
-                    Tool</a>
+                <a href="#" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition w-full block text-center ripple">Use Tool</a>
             </div>
         </div>
-    </div>
 
-    <!-- Additional Content to Mimic Mobile App -->
-    <div class="w-full max-w-4xl mt-10">
-        <h3 class="text-3xl font-bold text-white text-center mb-4">Other Useful Tools</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            <!-- Example Tool 1 -->
-            <div
-                class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl group">
-                <div class="absolute top-0 right-0 m-4">
-                    <i class="fas fa-tasks text-yellow-500 text-4xl"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Task Manager</h2>
-                <p class="text-gray-600 mt-2">Organize and manage your daily tasks with ease.</p>
-                <div class="mt-6">
-                    <a href="{% url 'task_list' %}" class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition w-full block text-center ripple">
-                        Use Tool
-                    </a>
-                    
-                </div>
+         <!-- Task Manager Card -->
+         <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
+            <div class="absolute top-0 right-0 m-4">
+                <i class="fas fa-tasks text-yellow-500 text-4xl"></i>
             </div>
-
-            <!-- Example Tool 2 -->
-            <div
-                class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl group">
-                <div class="absolute top-0 right-0 m-4">
-                    <i class="fas fa-book-open text-indigo-500 text-4xl"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Study Planner</h2>
-                <p class="text-gray-600 mt-2">Plan your study sessions effectively using our planner.</p>
-                <div class="mt-6">
-                    <a href="#"
-                        class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition w-full block text-center ripple">Use
-                        Tool</a>
-                </div>
+            <h2 class="text-2xl font-bold text-gray-800">Task Manager</h2>
+            <p class="text-gray-600 mt-2">Organize and manage your daily tasks with ease.</p>
+            <div class="mt-6">
+                <a href="{% url 'task_list' %}" class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition w-full block text-center ripple">Use Tool</a>
             </div>
-
         </div>
+
+        <!-- Study Planner Card -->
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl group">
+            <div class="absolute top-0 right-0 m-4">
+                <i class="fas fa-book-open text-indigo-500 text-4xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Study Planner</h2>
+            <p class="text-gray-600 mt-2">Plan your study sessions effectively using our planner.</p>
+            <div class="mt-6">
+                <a href="" class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition w-full block text-center ripple">Use Tool</a>
+            </div>
+        </div>
+
+        <!-- Routine Generator Card -->
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl group">
+            <div class="absolute top-0 right-0 m-4">
+                <i class="fas fa-calendar-alt text-red-500 text-4xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Routine Generator</h2>
+            <p class="text-gray-600 mt-2">Plan and generate your study routine for the week.</p>
+            <div class="mt-6">
+                <a href="#" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition w-full block text-center ripple">Use Tool</a>
+            </div>
+        </div>
+
+        <!-- Notes Organizer Card -->
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
+            <div class="absolute top-0 right-0 m-4">
+                <i class="fas fa-book text-black text-4xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Notes Organizer</h2>
+            <p class="text-gray-600 mt-2">Organize your class notes efficiently with our tool.</p>
+            <div class="mt-6">
+                <a href="#" class="bg-black text-white px-4 py-2 rounded-md hover:bg-black-600 transition w-full block text-center ripple">Use Tool</a>
+            </div>
+        </div>
+
+        <!-- Flashcard Generator Card -->
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl group">
+            <div class="absolute top-0 right-0 m-4">
+                <i class="fas fa-clipboard-list text-pink-500 text-4xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Flashcard Generator</h2>
+            <p class="text-gray-600 mt-2">Create flashcards for efficient study sessions.</p>
+            <div class="mt-6">
+                <a href="#" class="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 transition w-full block text-center ripple">Use Tool</a>
+            </div>
+        </div>
+
+        <!-- Time Tracker Card -->
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
+            <div class="absolute top-0 right-0 m-4">
+                <i class="fas fa-stopwatch text-black text-4xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Time Tracker</h2>
+            <p class="text-gray-600 mt-2">Track your study time to enhance productivity.</p>
+            <div class="mt-14">
+                <a href="#" class="bg-black text-white px-4 py-2 rounded-md hover:bg-black-600 transition w-full block text-center ripple">Use Tool</a>
+            </div>
+        </div>
+
+        <!-- Mind Map Generator Card -->
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl group">
+            <div class="absolute top-0 right-0 m-4">
+                <i class="fas fa-brain text-purple-500 text-4xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Mind Map Generator</h2>
+            <p class="text-gray-600 mt-2">Visualize your ideas using mind maps.</p>
+            <div class="mt-6">
+                <a href="#" class="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 transition w-full block text-center ripple">Use Tool</a>
+            </div>
+        </div>
+
+        <div class="relative bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-500 hover:shadow-2xl shake group">
+            <div class="absolute top-0 right-0 m-4">
+                <i class="fas fa-check-circle text-green-500 text-4xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Habit Tracker</h2>
+            <p class="text-gray-600 mt-2">Track your daily habits and stay consistent with your goals.</p>
+            <div class="mt-14">
+                <a href="#" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition w-full block text-center ripple">Use Tool</a>
+            </div>
+        </div>
+        
+        
     </div>
+
+    
 
     <!-- JavaScript for Mobile Menu Toggle -->
     <script>
@@ -166,4 +229,4 @@
         });
     </script>
 
-    {% endblock %}
+{% endblock %}

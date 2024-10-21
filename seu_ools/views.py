@@ -1,15 +1,18 @@
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from reportlab.lib.pagesizes import A4
-from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
-from datetime import datetime
-import io
-import qrcode
-
+from django.shortcuts import render
+from study_planner.models import UserProfile
 
 def home(request):
-    return render(request,"home.html")
+    # Check if the user is authenticated and get the user's profile
+    if request.user.is_authenticated:
+        try:
+            user_profile = UserProfile.objects.get(user=request.user)
+        except UserProfile.DoesNotExist:
+            user_profile = None
+    else:
+        user_profile = None
+
+    context = {
+        'user_profile': user_profile
+    }
+
+    return render(request, 'home.html', context)

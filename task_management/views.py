@@ -39,13 +39,13 @@ def create_task(request):
 
 @login_required
 def task_list(request):
-    # Initialize the filter form
+
     filter_form = TaskFilterForm(request.GET)
 
-    # Get tasks only created by the logged-in user
+ 
     tasks = Task.objects.filter(user=request.user)
 
-    # If a status filter is applied
+  
     if filter_form.is_valid() and filter_form.cleaned_data['status']:
         tasks = tasks.filter(status=filter_form.cleaned_data['status'])
 
@@ -59,14 +59,14 @@ def task_list(request):
 @login_required
 def complete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id, user=request.user)
-    task.status = 'D'  # Mark task as 'Done'
+    task.status = 'D'  
     task.save()
     return redirect('task_list')
 
 
 @login_required
 def edit_task(request, pk):
-    task = get_object_or_404(Task, pk=pk, user=request.user)  # Make sure only the current user's tasks can be edited
+    task = get_object_or_404(Task, pk=pk, user=request.user)  
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES, instance=task)
         if form.is_valid():
